@@ -1,4 +1,6 @@
 <img width="403" height="259" alt="image" src="https://github.com/user-attachments/assets/3109d5d7-3fef-4b2c-b1e1-b75a3a936b1e" />
+<img width="831" height="221" alt="image" src="https://github.com/user-attachments/assets/a2bc44fb-e5d4-46ef-8040-8a59150536a6" />
+
 
 # TRX Bot 🤖
 
