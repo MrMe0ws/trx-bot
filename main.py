@@ -25,22 +25,18 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Конфигурация
+# Конфигурация из .env
 bot_token = os.getenv('BOT_TOKEN')
 chat_id = os.getenv('CHAT_ID')
 API_TIMEOUT = 60  # Увеличено время ожидания
-
-# Разрешенные пользователи из .env
-allowed_user_ids_str = os.getenv('ALLOWED_USER_IDS', '')
-ALLOWED_USER_IDS = {int(uid.strip()) for uid in allowed_user_ids_str.split(',') if uid.strip()}
+ALLOWED_USER_IDS = {int(os.getenv('ALLOWED_USER_IDS'))}  # Разрешенные пользователи
 
 # API URLs из .env
-api_urls_str = os.getenv('API_URLS', '')
-api_urls = [url.strip() for url in api_urls_str.split(',') if url.strip()]
-
-# Приватные данные кошельков из .env
-MAIN_WALLET_ADDRESS = os.getenv('MAIN_WALLET_ADDRESS', '')
-MAIN_WALLET_NAME = os.getenv('MAIN_WALLET_NAME', '🟢 Основной кошелек 🟢')
+api_urls = [
+    f'https://apilist.tronscanapi.com/api/accountv2?address={os.getenv("MAIN_WALLET_ADDRESS")}',
+    # 'https://apilist.tronscanapi.com/api/accountv2?address=TJMeCcNqBhmpf81YKUP7hogzL6FJznV1QH',
+    # 'https://apilist.tronscanapi.com/api/accountv2?address=TVoCL7N1CUXLnXCxrss19SeJNz7JRMZnBL',
+]
 
 # Настройка retry стратегии для requests
 session = requests.Session()
@@ -55,30 +51,6 @@ session.mount('https://', adapter)
 
 # Инициализация бота с увеличенным таймаутом
 bot = telebot.TeleBot(bot_token, threaded=True, num_threads=4)
-
-# Проверка обязательных переменных окружения
-if not bot_token:
-    logger.error("BOT_TOKEN не найден в .env файле")
-    sys.exit(1)
-
-if not chat_id:
-    logger.error("CHAT_ID не найден в .env файле")
-    sys.exit(1)
-
-if not ALLOWED_USER_IDS:
-    logger.error("ALLOWED_USER_IDS не найден в .env файле")
-    sys.exit(1)
-
-if not api_urls:
-    logger.error("API_URLS не найден в .env файле")
-    sys.exit(1)
-
-if not MAIN_WALLET_ADDRESS:
-    logger.error("MAIN_WALLET_ADDRESS не найден в .env файле")
-    sys.exit(1)
-
-logger.info(f"Бот настроен для пользователей: {ALLOWED_USER_IDS}")
-logger.info(f"API URLs загружено: {len(api_urls)}")
 
 # Функция для преобразования времени в секунды до следующего указанного времени по МСК
 
@@ -256,10 +228,10 @@ def send_wallet_data(chat_id):
         wallet = get_wallet_data(api_url)
         if wallet:
             address = wallet['address']
-            is_main = address == MAIN_WALLET_ADDRESS
+            is_main = address == os.getenv('MAIN_WALLET_ADDRESS')
 
             message += (
-                f"{MAIN_WALLET_NAME if is_main else '🟡 Адрес кошелька 🟡'}\n\n"
+                f"{os.getenv('MAIN_WALLET_NAME') if is_main else '🟡 Адрес кошелька 🟡'}\n\n"
                 # f"{address}\n\n"
                 f"💰 {wallet['total_usd_value']} $\n"
                 f"🔻 ALL TRX   - {wallet['all_trx']}\n\n"
