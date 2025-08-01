@@ -1,3 +1,5 @@
+<img width="403" height="259" alt="image" src="https://github.com/user-attachments/assets/3109d5d7-3fef-4b2c-b1e1-b75a3a936b1e" />
+
 # TRX Bot 🤖
 
 Telegram бот для мониторинга TRX кошельков и отслеживания заработка.
