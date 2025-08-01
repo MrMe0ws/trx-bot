@@ -47,13 +47,23 @@ pip install pyTelegramBotAPI python-dotenv requests pytz
 BOT_TOKEN=your_bot_token_here
 
 # Chat ID для отправки сообщений
-CHAT_ID=your_chat_id_here
+CHAT_ID=your_chat_tg_id_here
+CHAT_ID = 11111111
 
 # Разрешённые пользователи (через запятую)
-ALLOWED_USER_IDS=your_user_id_here
+ALLOWED_USER_IDS=your_user_tg_id_here
+ALLOWED_USER_IDS = 1111111
+
+# Кошелёк
+MAIN_WALLET_ADDRESS = 'TJMeCcNqBhmpf81YKUP7hogzL6FJznV1QH'
+MAIN_WALLET_NAME = '🟢 Кошелек FJznV1QH 🟢'
 
 # API URLs для кошельков (через запятую)
 API_URLS=https://apilist.tronscanapi.com/api/accountv2?address=YOUR_WALLET_ADDRESS
+# API URLs
+API_URLS = [ 'https://apilist.tronscanapi.com/api/accountv2?address=TJMeCcNqBhmpf81YKUP7hogzL6FJznV1QH',
+    # 'https://apilist.tronscanapi.com/api/accountv2?address=TVoCL7N1CUXLnXCxrss19SeJNz7JRMZnBL'
+]
 ```
 
 ### 4. Настройка бота
@@ -94,7 +104,6 @@ trx-bot/
 ### Команды бота
 
 - `/start` — запуск бота и начало ежедневной рассылки
-- `/check` — проверить баланс кошельков сейчас
 
 ### Кнопки
 
@@ -125,18 +134,9 @@ trx-bot/
 ### Расчёт заработка
 
 - **За месяц** = (максимальное значение текущего месяца) - (максимальное значение прошлого месяца)
-- **Даже 1-го числа** показывает реальную прибыль с начала месяца
+- **1-го числа** показывает реальную прибыль с начала месяца
 
 ## 🔧 Конфигурация
-
-### Переменные окружения (.env)
-
-| Переменная         | Описание                 | Пример                                                          |
-| ------------------ | ------------------------ | --------------------------------------------------------------- |
-| `BOT_TOKEN`        | Токен Telegram бота      | `1234567890:ABCdefGHIjklMNOpqrsTUVwxyz`                         |
-| `CHAT_ID`          | ID чата для отправки     | `11111111`                                                      |
-| `ALLOWED_USER_IDS` | Разрешённые пользователи | `11111111,123456789`                                            |
-| `API_URLS`         | API кошельков            | `https://apilist.tronscanapi.com/api/accountv2?address=ADDRESS` |
 
 ### Настройка времени
 
